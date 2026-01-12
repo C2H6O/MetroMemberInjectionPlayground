@@ -6,10 +6,14 @@ junitVersion = "1.3.0"
 espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.10.0"
 activityCompose = "1.12.2"
-kotlin = "2.1.0"
+kotlin = "2.1.21"
 composeBom = "2025.12.01"
 dagger = "2.57.2"
-ksp = "2.1.0-1.0.29"
+# 2.1.21-2.0.2
+# 2.2.21-2.0.4
+# 1.9.25-1.0.20
+ksp = "2.1.21-2.0.2"
+anvilKsp = "0.5.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,3 +38,4 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+anvilKsp = { id = "dev.zacsweers.anvil", version.ref = "anvilKsp" }
