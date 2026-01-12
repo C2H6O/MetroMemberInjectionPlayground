@@ -7,9 +7,6 @@ plugins {
 
 android {
     namespace = "net.doubov.daggeranvilplayground"
-//    compileSdk {
-//        version = release(36)
-//    }
 
     compileSdkVersion(36)
 
