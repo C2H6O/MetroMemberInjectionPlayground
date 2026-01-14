@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.res.Resources
 import com.squareup.anvil.annotations.MergeComponent
 import dagger.BindsInstance
-import dagger.Component
 
 @AppScope
 @MergeComponent(AppScope::class)
