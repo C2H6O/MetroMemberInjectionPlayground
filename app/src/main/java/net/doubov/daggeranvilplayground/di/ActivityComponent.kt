@@ -8,7 +8,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
-import dev.zacsweers.metro.GraphExtension
+//import dev.zacsweers.metro.GraphExtension
 import net.doubov.daggeranvilplayground.FragmentKey
 import net.doubov.daggeranvilplayground.MainActivity
 
@@ -18,7 +18,7 @@ interface ActivityComponent {
 
     fun inject(activity: MainActivity)
 
-    @GraphExtension.Factory
+//    @GraphExtension.Factory
     @MergeSubcomponent.Factory
     interface Factory {
         fun create(): ActivityComponent

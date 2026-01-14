@@ -1,2 +1,0 @@
-package net.doubov.daggeranvilplayground
-

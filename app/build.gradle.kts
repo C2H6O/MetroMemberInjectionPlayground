@@ -6,16 +6,16 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
-//    alias(libs.plugins.anvilKsp)
-    alias(libs.plugins.metro)
+    alias(libs.plugins.anvilKsp)
+//    alias(libs.plugins.metro)
 }
 
-//anvil {
-//    useKsp(
-//        contributesAndFactoryGeneration = true,
-//        componentMerging = true
-//    )
-//}
+anvil {
+    useKsp(
+        contributesAndFactoryGeneration = true,
+        componentMerging = true
+    )
+}
 
 android {
     namespace = "net.doubov.daggeranvilplayground"
@@ -63,21 +63,21 @@ android {
     }
 }
 
-//kotlin {
-//    compilerOptions {
-//        languageVersion.set(KotlinVersion.KOTLIN_1_9)
-//    }
-//}
-
-metro {
-    interop {
-        includeDagger(includeJavax = true)
-        includeAnvilForDagger(includeJavax = true)
+kotlin {
+    compilerOptions {
+        languageVersion.set(KotlinVersion.KOTLIN_1_9)
     }
 }
 
+//metro {
+//    interop {
+//        includeDagger(includeJavax = true)
+//        includeAnvilForDagger(includeJavax = true)
+//    }
+//}
+
 dependencies {
-//    ksp(libs.daggerCompiler)
+    ksp(libs.daggerCompiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

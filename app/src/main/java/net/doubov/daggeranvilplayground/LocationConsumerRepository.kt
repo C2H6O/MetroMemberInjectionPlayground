@@ -1,9 +1,5 @@
 package net.doubov.daggeranvilplayground
 
-import com.squareup.anvil.annotations.ContributesBinding
-import net.doubov.daggeranvilplayground.di.ActivityScope
-import net.doubov.daggeranvilplayground.di.EnvironmentScope
-import net.doubov.daggeranvilplayground.di.SheetFilterLbsConsumerRepository
 import javax.inject.Inject
 
 interface LocationConsumerRepository {

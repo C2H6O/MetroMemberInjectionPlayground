@@ -12,13 +12,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import dev.zacsweers.metro.createGraphFactory
+//import dev.zacsweers.metro.createGraphFactory
 import net.doubov.daggeranvilplayground.di.AppComponent
+import net.doubov.daggeranvilplayground.di.DaggerAppComponent
 import net.doubov.daggeranvilplayground.di.Environment
 import net.doubov.daggeranvilplayground.di.FragmentA
 import net.doubov.daggeranvilplayground.di.FragmentB
 import net.doubov.daggeranvilplayground.di.Greeter
 import net.doubov.daggeranvilplayground.di.JavaFragment
+import net.doubov.daggeranvilplayground.di.SheetFilterLbsConsumerRepository
 import net.doubov.daggeranvilplayground.ui.theme.DaggerAnvilPlaygroundTheme
 import javax.inject.Inject
 
@@ -39,18 +41,17 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var meetingsNavigator: MeetingsNavigator
 
-//    @Inject
-////    @SheetFilterLbsConsumerRepository
-//    @SheetFilterLbsConsumerRepository
-//    lateinit var sheetFilterLbsRepository: LocationConsumerRepository
+    @Inject
+    @SheetFilterLbsConsumerRepository
+    lateinit var sheetFilterLbsRepository: LocationConsumerRepository
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        createGraphFactory<AppComponent.Factory>()
-//        DaggerAppComponent.factory()
+//        createGraphFactory<AppComponent.Factory>()
+        DaggerAppComponent.factory()
             .create(application)
             .environmentFactory
             .create(Environment("Yuppy!"))
@@ -73,7 +74,7 @@ class MainActivity : ComponentActivity() {
 
         meetingsNavigator.openMeetingItemAsReference()
 
-//        println("LX+++ ${sheetFilterLbsRepository.getListOfSavedLocations("1337").joinToString()}")
+        println("LX+++ ${sheetFilterLbsRepository.getListOfSavedLocations("1337").joinToString()}")
 
         setContent {
             DaggerAnvilPlaygroundTheme {
