@@ -13,7 +13,6 @@ interface AppComponent {
 
     val resource: Resources
 
-    fun inject(activity: MainActivity)
     fun inject(fragment: MemberInjectionJavaFragment)
     fun inject(fragment: MemberInjectionKotlinFragment)
 

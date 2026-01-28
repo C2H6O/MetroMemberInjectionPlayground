@@ -1,6 +1,5 @@
 package net.doubov.daggeranvilplayground
 
-import android.content.res.Resources
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,12 +16,8 @@ import net.doubov.daggeranvilplayground.di.AppComponent
 import net.doubov.daggeranvilplayground.di.MemberInjectionJavaFragment
 import net.doubov.daggeranvilplayground.di.MemberInjectionKotlinFragment
 import net.doubov.daggeranvilplayground.ui.theme.DaggerAnvilPlaygroundTheme
-import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
-
-    @Inject
-    lateinit var injectedResources: Resources
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -31,10 +26,6 @@ class MainActivity : ComponentActivity() {
 
         val appComponent = createGraphFactory<AppComponent.Factory>()
             .create(application)
-
-        appComponent.inject(this)
-
-        println("LX+++ Kotlin AssetsManager: ${injectedResources.assets}")
 
         val memberInjectionKotlinFragment = MemberInjectionKotlinFragment()
         appComponent.inject(memberInjectionKotlinFragment)
