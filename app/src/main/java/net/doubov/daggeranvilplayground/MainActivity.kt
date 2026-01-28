@@ -12,15 +12,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-//import dev.zacsweers.metro.createGraphFactory
+import dev.zacsweers.metro.createGraphFactory
 import net.doubov.daggeranvilplayground.di.AppComponent
-import net.doubov.daggeranvilplayground.di.DaggerAppComponent
-import net.doubov.daggeranvilplayground.di.Environment
-import net.doubov.daggeranvilplayground.di.FragmentA
-import net.doubov.daggeranvilplayground.di.FragmentB
-import net.doubov.daggeranvilplayground.di.Greeter
-import net.doubov.daggeranvilplayground.di.JavaFragment
-import net.doubov.daggeranvilplayground.di.SheetFilterLbsConsumerRepository
+import net.doubov.daggeranvilplayground.di.MemberInjectionJavaFragment
+import net.doubov.daggeranvilplayground.di.MemberInjectionKotlinFragment
 import net.doubov.daggeranvilplayground.ui.theme.DaggerAnvilPlaygroundTheme
 import javax.inject.Inject
 
@@ -29,52 +24,25 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var injectedResources: Resources
 
-    @Inject
-    lateinit var environment: Environment
-
-    @Inject
-    lateinit var fragmentFactory: InjectedFragmentFactory
-
-    @Inject
-    lateinit var injectedFragmentFactory: InjectedFragmentFactory
-
-    @Inject
-    lateinit var meetingsNavigator: MeetingsNavigator
-
-    @Inject
-    @SheetFilterLbsConsumerRepository
-    lateinit var sheetFilterLbsRepository: LocationConsumerRepository
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-//        createGraphFactory<AppComponent.Factory>()
-        DaggerAppComponent.factory()
+        val appComponent = createGraphFactory<AppComponent.Factory>()
             .create(application)
-            .environmentFactory
-            .create(Environment("Yuppy!"))
-            .activityFactory
-            .create()
-            .inject(this)
 
-        val fragmentA = fragmentFactory.instantiate(classLoader,FragmentA::class.java.name) as Greeter
-        fragmentA.greet()
-        val fragmentB = fragmentFactory.instantiate(classLoader,FragmentB::class.java.name) as Greeter
-        fragmentB.greet()
+        appComponent.inject(this)
 
-        val fragmentJava = fragmentFactory.instantiate(classLoader, JavaFragment::class.java.name) as Greeter
-        fragmentJava.greet()
+        println("LX+++ Kotlin AssetsManager: ${injectedResources.assets}")
 
-        val fragA = injectedFragmentFactory.instantiate(classLoader, FragmentA::class.java.name)
-        println("LX+++ frag A? $fragA")
+        val memberInjectionKotlinFragment = MemberInjectionKotlinFragment()
+        appComponent.inject(memberInjectionKotlinFragment)
+        memberInjectionKotlinFragment.ensureResourcesNonNull()
 
-        println("LX+++ resources $injectedResources $environment")
-
-        meetingsNavigator.openMeetingItemAsReference()
-
-        println("LX+++ ${sheetFilterLbsRepository.getListOfSavedLocations("1337").joinToString()}")
+        val memberInjectionJavaFragment = MemberInjectionJavaFragment()
+        appComponent.inject(memberInjectionJavaFragment)
+        memberInjectionJavaFragment.ensureResourcesNotNull()
 
         setContent {
             DaggerAnvilPlaygroundTheme {

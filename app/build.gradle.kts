@@ -1,37 +1,15 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.anvilKsp)
-//    alias(libs.plugins.metro)
-}
-
-anvil {
-    useKsp(
-        contributesAndFactoryGeneration = true,
-        componentMerging = true
-    )
+    alias(libs.plugins.metro)
 }
 
 android {
     namespace = "net.doubov.daggeranvilplayground"
 
     compileSdkVersion(36)
-
-    sourceSets {
-        getByName("main") {
-            val diFramework = providers.gradleProperty("diFramework").get()
-            if (diFramework == "metro") {
-                kotlin.srcDir("src/metro/kotlin")
-            } else {
-                kotlin.srcDir("src/anvil/kotlin")
-            }
-        }
-    }
 
     defaultConfig {
         applicationId = "net.doubov.daggeranvilplayground"
@@ -63,22 +41,14 @@ android {
     }
 }
 
-kotlin {
-    compilerOptions {
-        languageVersion.set(KotlinVersion.KOTLIN_1_9)
+metro {
+    interop {
+        includeDagger(includeJavax = true)
+        includeAnvilForDagger(includeJavax = true)
     }
 }
 
-//metro {
-//    interop {
-//        includeDagger(includeJavax = true)
-//        includeAnvilForDagger(includeJavax = true)
-//    }
-//}
-
 dependencies {
-    ksp(libs.daggerCompiler)
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
